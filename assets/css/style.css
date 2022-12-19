@@ -1,5 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    max-width: 100%;
 }
 
 .title {
@@ -13,10 +14,6 @@ h1 {
     color: white;
 }
 
-.container {
-    max-width: 1500px;
-
-}
 
 .input {
     padding-bottom: 10px;
@@ -31,7 +28,7 @@ input {
     font-size: 20px;
 }
 
-button {
+#searchId {
     width : 290px;
     height: 30px;
     border-radius: 5px;
@@ -40,5 +37,24 @@ button {
     color: white;
     font-size: 15px;
     cursor: pointer;
+}
+
+#searchId:hover {
+    color: rgb(108, 130, 143);
+ }
+
+#clearbtn {
+    width : 290px;
+    height: 30px;
+    border-radius: 5px;
+    background-color:grey;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#clearbtn:hover {
+   color: rgba(255, 255, 255, 0.342);
 }
 
