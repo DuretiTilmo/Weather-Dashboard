@@ -1,3 +1,4 @@
+// Variable declaration
 var inputEl = document.querySelector("#searchInput");
 var weatherContentEl = document.querySelector(".coming-days");
 var weatherEl = document.querySelector(".result");
@@ -9,6 +10,7 @@ var APIKey = 'c192990534f3c3d9e23e97ee314b1367';
 var weatherBaseEndpoint = 'https://api.openweathermap.org/data/2.5/forecast?appid=' + APIKey;
 const searchHistory=[];
 
+//Send an API request using the built-in browser fetch method
 let getWeatherByCityName = function(city){
   let endpoint = weatherBaseEndpoint + '&q=' + city; 
   
@@ -18,18 +20,20 @@ let getWeatherByCityName = function(city){
   })
   .then(function(data) {
  
+    // Loop through the data to get the currentDate weather
     const dates=[];
-   
       weatherContentEl.textContent = '';
       for (var i = 0; i < data.list.length; i++) {
         currentDate = getDateString(data.list[i].dt_txt);
+        //The matrices will display forecast weather parameters in 3 hour intervals out for each day. For that;   
+         // Conditional statement to only select the data on different dates 
          if(!dates.includes(currentDate)){
            dates.push(currentDate);        
           searchHistory.push(getWeatherObject(data.list[i]));
          }
       } 
+      // Stringify and set key in local storage to searchHistory array
       if(!searchHistory.length==0){ 
-        // localStorage.clear();
         localStorage.setItem(city, JSON.stringify(searchHistory));
        }
       printWeather(searchHistory);
@@ -37,34 +41,31 @@ let getWeatherByCityName = function(city){
       searchHistory.splice(0, searchHistory.length);    
     });
 
+ // This function gets the dates by splitting dateData string  
 function getDateString(dateData) {        
      return dateData.split(' ')[0];           
  }   
 
-    //   $(document).ready(function() {
-    //     $('#searchHistory').append('<input type="button" id='+city+' value=' +city+' class="btn"><br>');
-    //     $("#"+city).on("click", getWeatherforCity(city));
-    // });
-      
+// Get stored key/city from local storage 
 function getWeatherforCity(cityLocal){
   city = cityLocal.replace("_", " "); 
   printWeather(JSON.parse(localStorage.getItem(city)));  
 }
 
+// This function prints previously searched city names, make them a button and calls for initialization function
 function printHistory(){
   $("#searchHistory").html("");
-      if(!searchHistory.length==0){         
+      if(!searchHistory.length==0){            
         Object.keys(localStorage).forEach((key) => {
           const cityName = key.split(" ");
           var cityId = key.replace(/ /g, "_");          
           $('#searchHistory').append('<input type="button" id='+cityId+' value='+cityId +' class="historyBtn"><br>');
-          // $("#"+cityId).on("click", getWeatherforCity(cityName));
-          initHistory();
-        // console.log(JSON.parse(localStorage.getItem(key)));        
       });
+      initHistory();
     }
   }
 
+// Initializes the history button and when clicked displays the clicked city's weather data
   function initHistory(){
     let buttonList = document.querySelectorAll(".historyBtn");
   for (let i = 0; i <buttonList.length; ++i) {
@@ -75,6 +76,8 @@ function printHistory(){
     });
   }
   }
+
+  // This function has got an object of specified weather data from data list
      function getWeatherObject(weatherObj){
       var weather = document.createElement('div');
         weather = {
@@ -86,15 +89,9 @@ function printHistory(){
         };
         return weather;
       }
-    
-      // document.getElementById("searchId").addEventListener("click", function(event) {
-      //   event.stopPropagation()
-      //   });
-  // });
 
+  // Prints out all the requested information by dynamically creating the elements to display the data inside of it 
 function printWeather(weatherObjList) {
-//  console.log(weatherObj);
-//var jsonArray = JSON.parse(weatherObj);
 var date1,temp1,wind1,humidity1;
 
 for (var i = 0; i < weatherObjList.length; i++) {
@@ -107,18 +104,14 @@ for (var i = 0; i < weatherObjList.length; i++) {
 
     var weatherCard = document.createElement('div');
     weatherCard.setAttribute('id', 'Card'+i)
-    // weatherCard.id = 'Card'+i;
-    weatherCard.classList.add('card-columns', 'w-5', 'bg-info', 'text-white', 'mx-3', 'p-3', 'col-lg-2', 'col-md-6','col-sm-9');
+    weatherCard.classList.add('card-columns', 'col-9','w-5', 'bg-info', 'text-white', 'mx-3', 'p-2', 'col-lg-2', 'col-md-6','col-sm-9');
     $('#Card'+i).html("");
-    //var weatherBody = document.createElement('div');
-    //weatherBody.classList.add('card-body');
-    //weatherCard.append(weatherBody);
 
     var citynameEl = document.createElement('h2');
     citynameEl.innerHTML = city;
     var kToF = ((temp1-273.15)*1.8)+32;
 
-    var dateEl = document.createElement('h3');
+    var dateEl = document.createElement('h4');
     if(i==0){
       dateEl.innerHTML = city +' (' + date1 + ')<br>';
     }else{
@@ -138,23 +131,21 @@ for (var i = 0; i < weatherObjList.length; i++) {
      var bodyContentEl3 = document.createElement('p');
      bodyContentEl3.innerHTML =
      'Humidity: ' + humidity1 + '%';
+
+     // Conditional to display the first item of the array i.e todays result 
      if(i==0){ 
       var headEl = document.createElement('h3');
       headEl.innerHTML = "5-Day Forecast:";
       $(".sub-title").html("");
       subTitleEl.append(headEl);
-
       $("#result-content").html("");
       todaysResult.append(dateEl,imgEl,bodyContentEl1,bodyContentEl2,bodyContentEl3 );
-      todaysResult.setAttribute('style', 'border: 2px solid black', 'd-flex .justify-content-sm-center' );
-      
-      // subTitleEl.setAttribute('style',  )
+      todaysResult.setAttribute('style', 'border: 2px solid black', 'd-flex .justify-content-sm-center');
+    
      }else{
-      
       weatherCard.append(dateEl,imgEl,bodyContentEl1,bodyContentEl2,bodyContentEl3 )
       weatherContentEl.append(weatherCard);
      }
-     // weatherEl.append(weatherCard);
  }
 }
 };

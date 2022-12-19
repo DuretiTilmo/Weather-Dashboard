@@ -1,60 +1,47 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 100%;
+  font-family:Arial, Helvetica, sans-serif;
+  max-width: 100%;
 }
 
 .title {
-    background-color: darkblue;
-    height: 80px;
+  background-color: darkblue;
+  height: 80px;
 }
 
 h1 {
-    text-align: center;
-    padding: 20px;
-    color: white;
+  text-align: center;
+  padding: 20px;
+  color: white;
 }
 
-
 .input {
-    padding-bottom: 10px;
-    
+  padding-bottom: 10px;
 }
 
 input {
-    background-color: white;
-    width : 280px;
-    height: 35px;
-    border-radius: 5px;
-    font-size: 20px;
+  background-color: white;
+  width: 280px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 #searchId {
-    width : 290px;
-    height: 30px;
-    border-radius: 5px;
-    background-color: rgb(52, 169, 241);
-    border: none;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
+  width: 280px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(52, 169, 241);
+  border: none;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 #searchId:hover {
-    color: rgb(108, 130, 143);
- }
-
-#clearbtn {
-    width : 290px;
-    height: 30px;
-    border-radius: 5px;
-    background-color:grey;
-    border: none;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
+  color: rgb(108, 130, 143);
 }
 
-#clearbtn:hover {
-   color: rgba(255, 255, 255, 0.342);
+.container2 {
+   max-width: 70%;
+   margin-left: 300px;
 }
-
