@@ -3,13 +3,12 @@ var inputEl = document.querySelector("#searchInput");
 var weatherContentEl = document.querySelector(".coming-days");
 var weatherEl = document.querySelector(".result");
 var todaysResult = document.querySelector("#result-content");
-var moreDaysEl = document.querySelector(".more-days");
 var subTitleEl = document.querySelector(".sub-title");
 
 var APIKey = 'c192990534f3c3d9e23e97ee314b1367';
 var weatherBaseEndpoint = 'https://api.openweathermap.org/data/2.5/forecast?appid=' + APIKey;
 const searchHistory=[];
-
+const eventList = [];
 //Send an API request using the built-in browser fetch method
 let getWeatherByCityName = function(city){
   let endpoint = weatherBaseEndpoint + '&q=' + city; 
@@ -69,11 +68,14 @@ function printHistory(){
   function initHistory(){
     let buttonList = document.querySelectorAll(".historyBtn");
   for (let i = 0; i <buttonList.length; ++i) {
+    if (!eventList.includes(buttonList[i].id)) {
+      eventList.push(buttonList[i]);
+    
     buttonList[i].addEventListener("click", function() {
-      // alert(this.innerHTML +" is clicked");
       var cityId = this.id;
       getWeatherforCity(cityId);
-    });
+    
+    })};
   }
   }
 
@@ -104,7 +106,7 @@ for (var i = 0; i < weatherObjList.length; i++) {
 
     var weatherCard = document.createElement('div');
     weatherCard.setAttribute('id', 'Card'+i)
-    weatherCard.classList.add('card-columns', 'col-9','w-5', 'bg-info', 'text-white', 'mx-3', 'p-2', 'col-lg-2', 'col-md-6','col-sm-9');
+    weatherCard.classList.add('card-columns', 'col-9','w-5', 'bg-info', 'text-white', 'mx-2', 'p-2', 'col-lg-2', 'col-md-9','col-sm-6');
     $('#Card'+i).html("");
 
     var citynameEl = document.createElement('h2');
@@ -139,6 +141,7 @@ for (var i = 0; i < weatherObjList.length; i++) {
       $(".sub-title").html("");
       subTitleEl.append(headEl);
       $("#result-content").html("");
+      $(".coming-days").html("");
       todaysResult.append(dateEl,imgEl,bodyContentEl1,bodyContentEl2,bodyContentEl3 );
       todaysResult.setAttribute('style', 'border: 2px solid black', 'd-flex .justify-content-sm-center');
     
