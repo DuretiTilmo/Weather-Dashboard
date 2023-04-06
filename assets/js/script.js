@@ -152,4 +152,3 @@ for (var i = 0; i < weatherObjList.length; i++) {
  }
 }
 };
-
